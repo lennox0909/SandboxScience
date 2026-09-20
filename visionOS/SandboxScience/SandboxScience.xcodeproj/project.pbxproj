@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B85C44F8305FA9E800F5CA61 /* ParticleCompute.metal in Sources */ = {isa = PBXBuildFile; fileRef = B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */; };
+		B8E2D857305FA185005944C0 /* ParticleSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E2D84F305F9800005944C0 /* ParticleSimulator.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8E2D83C305F9781005944C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8E2D81C305F9780005944C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8E2D823305F9780005944C0;
+			remoteInfo = SandboxScience;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ParticleCompute.metal; sourceTree = "<group>"; };
+		B8E2D824305F9780005944C0 /* SandboxScience.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SandboxScience.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E2D83B305F9781005944C0 /* SandboxScienceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SandboxScienceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E2D84F305F9800005944C0 /* ParticleSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleSimulator.swift; sourceTree = "<group>"; };
+		B8E2D851305F9893005944C0 /* SharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedTypes.h; sourceTree = "<group>"; };
+		B8E2D854305F9BEC005944C0 /* SandboxScience-Bridging-Header.h.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SandboxScience-Bridging-Header.h.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B8E2D841305F9781005944C0 /* Exceptions for "SandboxScience" folder in "SandboxScience" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B8E2D823305F9780005944C0 /* SandboxScience */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B8E2D826305F9780005944C0 /* SandboxScience */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B8E2D841305F9781005944C0 /* Exceptions for "SandboxScience" folder in "SandboxScience" target */,
+			);
+			explicitFolders = (
+				Resources/Materials,
+			);
+			path = SandboxScience;
+			sourceTree = "<group>";
+		};
+		B8E2D83E305F9781005944C0 /* SandboxScienceTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SandboxScienceTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B8E2D821305F9780005944C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		B8E2D838305F9781005944C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B8E2D81B305F9780005944C0 = {
+			isa = PBXGroup;
+			children = (
+				B8E2D84E305F97E5005944C0 /* Simulation */,
+				B8E2D826305F9780005944C0 /* SandboxScience */,
+				B8E2D83E305F9781005944C0 /* SandboxScienceTests */,
+				B8E2D825305F9780005944C0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B8E2D825305F9780005944C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8E2D824305F9780005944C0 /* SandboxScience.app */,
+				B8E2D83B305F9781005944C0 /* SandboxScienceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B8E2D84E305F97E5005944C0 /* Simulation */ = {
+			isa = PBXGroup;
+			children = (
+				B8E2D84F305F9800005944C0 /* ParticleSimulator.swift */,
+				B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */,
+				B8E2D851305F9893005944C0 /* SharedTypes.h */,
+				B8E2D854305F9BEC005944C0 /* SandboxScience-Bridging-Header.h.h */,
+			);
+			path = Simulation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B8E2D823305F9780005944C0 /* SandboxScience */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E2D842305F9781005944C0 /* Build configuration list for PBXNativeTarget "SandboxScience" */;
+			buildPhases = (
+				B8E2D820305F9780005944C0 /* Sources */,
+				B8E2D821305F9780005944C0 /* Frameworks */,
+				B8E2D822305F9780005944C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				B8E2D826305F9780005944C0 /* SandboxScience */,
+			);
+			name = SandboxScience;
+			productName = SandboxScience;
+			productReference = B8E2D824305F9780005944C0 /* SandboxScience.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B8E2D83A305F9781005944C0 /* SandboxScienceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E2D847305F9781005944C0 /* Build configuration list for PBXNativeTarget "SandboxScienceTests" */;
+			buildPhases = (
+				B8E2D837305F9781005944C0 /* Sources */,
+				B8E2D838305F9781005944C0 /* Frameworks */,
+				B8E2D839305F9781005944C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8E2D83D305F9781005944C0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B8E2D83E305F9781005944C0 /* SandboxScienceTests */,
+			);
+			name = SandboxScienceTests;
+			productName = SandboxScienceTests;
+			productReference = B8E2D83B305F9781005944C0 /* SandboxScienceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B8E2D81C305F9780005944C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					B8E2D823305F9780005944C0 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					B8E2D83A305F9781005944C0 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = B8E2D823305F9780005944C0;
+					};
+				};
+			};
+			buildConfigurationList = B8E2D81F305F9780005944C0 /* Build configuration list for PBXProject "SandboxScience" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B8E2D81B305F9780005944C0;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B8E2D825305F9780005944C0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B8E2D823305F9780005944C0 /* SandboxScience */,
+				B8E2D83A305F9781005944C0 /* SandboxScienceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8E2D822305F9780005944C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		B8E2D839305F9781005944C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B8E2D820305F9780005944C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				B8E2D857305FA185005944C0 /* ParticleSimulator.swift in Sources */,
+				B85C44F8305FA9E800F5CA61 /* ParticleCompute.metal in Sources */,
+			);
+		};
+		B8E2D837305F9781005944C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8E2D83D305F9781005944C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8E2D823305F9780005944C0 /* SandboxScience */;
+			targetProxy = B8E2D83C305F9781005944C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B8E2D843305F9781005944C0 /* Debug configuration for PBXNativeTarget "SandboxScience" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_NSHandsTrackingUsageDescription = "需要使用您的手部來控制粒子力場。";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_LANGUAGE_REVISION = Metal40;
+				PRODUCT_BUNDLE_IDENTIFIER = "leno-1.com.SandboxScience";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h.h";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = "$(RECOMMENDED_XROS_DEPLOYMENT_TARGET)";
+			};
+			name = Debug;
+		};
+		B8E2D844305F9781005944C0 /* Release configuration for PBXNativeTarget "SandboxScience" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_NSHandsTrackingUsageDescription = "需要使用您的手部來控制粒子力場。";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_LANGUAGE_REVISION = Metal40;
+				PRODUCT_BUNDLE_IDENTIFIER = "leno-1.com.SandboxScience";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h.h";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = "$(RECOMMENDED_XROS_DEPLOYMENT_TARGET)";
+			};
+			name = Release;
+		};
+		B8E2D845305F9781005944C0 /* Debug configuration for PBXProject "SandboxScience" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = xros;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		B8E2D846305F9781005944C0 /* Release configuration for PBXProject "SandboxScience" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = xros;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+		B8E2D848305F9781005944C0 /* Debug configuration for PBXNativeTarget "SandboxScienceTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "leno-1.com.SandboxScienceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SandboxScience.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SandboxScience";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		B8E2D849305F9781005944C0 /* Release configuration for PBXNativeTarget "SandboxScienceTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42G29B8J9B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "leno-1.com.SandboxScienceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SandboxScience.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SandboxScience";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B8E2D81F305F9780005944C0 /* Build configuration list for PBXProject "SandboxScience" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E2D845305F9781005944C0 /* Debug configuration for PBXProject "SandboxScience" */,
+				B8E2D846305F9781005944C0 /* Release configuration for PBXProject "SandboxScience" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		B8E2D842305F9781005944C0 /* Build configuration list for PBXNativeTarget "SandboxScience" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E2D843305F9781005944C0 /* Debug configuration for PBXNativeTarget "SandboxScience" */,
+				B8E2D844305F9781005944C0 /* Release configuration for PBXNativeTarget "SandboxScience" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		B8E2D847305F9781005944C0 /* Build configuration list for PBXNativeTarget "SandboxScienceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E2D848305F9781005944C0 /* Debug configuration for PBXNativeTarget "SandboxScienceTests" */,
+				B8E2D849305F9781005944C0 /* Release configuration for PBXNativeTarget "SandboxScienceTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B8E2D81C305F9780005944C0 /* Project object */;
+	validationLevel = 1;
+}
