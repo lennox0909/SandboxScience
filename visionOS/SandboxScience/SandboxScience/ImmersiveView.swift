@@ -3,7 +3,11 @@ import RealityKit
 import ARKit
 
 struct ImmersiveView: View {
-    @State private var simulator = ParticleSimulator(boundsSize: 1.5)
+    // 📍 接收來自 UI 的設定
+    var settings: SimulationSettings
+
+    // 使用 State 確保模擬器只在視圖建立時初始化一次
+    @State private var simulator: ParticleSimulator?
     @State private var particleMesh: LowLevelMesh?
     @State private var updateSubscription: EventSubscription?
     @State private var session = ARKitSession()
@@ -11,7 +15,12 @@ struct ImmersiveView: View {
     
     var body: some View {
         RealityView { content in
+            // 延遲初始化 Simulator，確保環境準備好
+            if simulator == nil {
+                simulator = ParticleSimulator(boundsSize: 1.5)
+            }
             guard let simulator = simulator else { return }
+            
             do {
                 let (entity, mesh) = try createParticleMesh()
                 self.particleMesh = mesh
@@ -30,7 +39,10 @@ struct ImmersiveView: View {
                 
                 updateSubscription = content.subscribe(to: SceneEvents.Update.self) { _ in
                     guard let mesh = self.particleMesh else { return }
-                    simulator.stepSimulation()
+                    
+                    // 📍 關鍵修改：將即時的 UI 設定傳遞給 Metal 引擎
+                    simulator.stepSimulation(settings: settings)
+                    
                     mesh.withUnsafeMutableBytes(bufferIndex: 0) { meshBuffer in
                         let sourcePointer = simulator.vertexBuffer.contents()
                         meshBuffer.copyMemory(from: UnsafeRawBufferPointer(start: sourcePointer, count: meshBuffer.count))

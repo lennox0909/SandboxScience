@@ -61,11 +61,32 @@ class ParticleSimulator {
         }
         particleBuffer = device.makeBuffer(bytes: initialParticles, length: MemoryLayout<Particle>.stride * totalParticles, options: .storageModeShared)
         
-        // 📍 更新：54000 顆 * 60 頂點 * 32 Bytes
+        // 📍 54000 顆 * 60 頂點 * 32 Bytes
         vertexBuffer = device.makeBuffer(length: totalParticles * 60 * 32, options: .storageModeShared)
     }
     
-    func stepSimulation() {
+    // 📍 接收來自 UI 面板的即時參數設定
+    func stepSimulation(settings: SimulationSettings) {
+        
+        // 1. 將 UI 上的數值即時套用到 GPU 參數結構中
+        self.params.friction = settings.friction
+        self.params.dt = settings.speed
+        
+        // 2. 如果使用者按下了「隨機重置」按鈕
+        if settings.triggerRandomRules {
+            var rules = [Float](repeating: 0, count: numTypes * numTypes)
+            for i in 0..<rules.count { rules[i] = Float.random(in: -1.0...1.0) }
+            
+            // 將新產生的規則寫入已存在的 Buffer 中
+            let rulesPointer = rulesBuffer.contents().bindMemory(to: Float.self, capacity: rules.count)
+            for i in 0..<rules.count {
+                rulesPointer[i] = rules[i]
+            }
+            
+            // 觸發完畢後切換回 false，避免重複執行
+            settings.triggerRandomRules = false
+        }
+        
         guard let commandBuffer = commandQueue.makeCommandBuffer(), let encoder = commandBuffer.makeComputeCommandEncoder() else { return }
         
         encoder.setComputePipelineState(clearGridPipeline)
