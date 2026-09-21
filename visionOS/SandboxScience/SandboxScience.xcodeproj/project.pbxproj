@@ -22,6 +22,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B82D5DE930615645008C7558 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ParticleCompute.metal; sourceTree = "<group>"; };
 		B8E2D824305F9780005944C0 /* SandboxScience.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SandboxScience.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E2D83B305F9781005944C0 /* SandboxScienceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SandboxScienceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +77,7 @@
 		B8E2D81B305F9780005944C0 = {
 			isa = PBXGroup;
 			children = (
+				B82D5DE930615645008C7558 /* README.md */,
 				B8E2D84E305F97E5005944C0 /* Simulation */,
 				B8E2D826305F9780005944C0 /* SandboxScience */,
 				B8E2D83E305F9781005944C0 /* SandboxScienceTests */,
