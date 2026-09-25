@@ -23,6 +23,10 @@ struct SimParams {
     int sceneTriangleCount;
     int anchorCount;
     float3 boundsCenter;
+    
+    // 全域控制參數
+    float repelForce;
+    float forceMultiplier;
 };
 
 struct RenderVertex {
@@ -61,14 +65,12 @@ kernel void clearGrid(device atomic_int* grid [[buffer(0)]], uint id [[thread_po
 kernel void buildGrid(device const Particle* particles [[buffer(0)]], device atomic_int* grid [[buffer(1)]], constant SimParams& params [[buffer(2)]], uint id [[thread_position_in_grid]]) {
     if (id >= 54000) return;
     
-    // 📍 依據當前 UI 設定，判斷該粒子是否在啟用的範圍內
     int particlesPerType = 3375;
     int myType = id / particlesPerType;
     int myIndex = id % particlesPerType;
     int activeNumTypes = max(params.numTypes, 1);
     int activePerType = params.particleCount / activeNumTypes;
     
-    // 超出設定種類，或超出該種類應有數量的粒子，就不參與網格碰撞
     if (myType >= activeNumTypes || myIndex >= activePerType) return;
     
     float3 pShifted = particles[id].position - params.boundsCenter + float3(params.boundsSize * 0.5f);
@@ -97,7 +99,6 @@ kernel void updateParticles(device Particle* particles [[buffer(0)]],
     
     int vertexOffset = id * 60;
     
-    // 📍 若粒子處於停用狀態，強制將它的頂點推到 9999 遠的地方隱藏起來，並跳過後續所有運算
     if (myType >= activeNumTypes || myIndex >= activePerType) {
         for (int i = 0; i < 60; i++) {
             renderVertices[vertexOffset + i].position = float3(9999.0f);
@@ -144,7 +145,11 @@ kernel void updateParticles(device Particle* particles [[buffer(0)]],
                             
                             float rule = rules[effectiveTypeA * 16 + effectiveTypeB];
                             
-                            float f = (dist < 0.02f) ? ((0.02f - dist) / 0.02f * 2.0f) : (rule * (1.0f - abs(dist - 0.11f) / 0.09f) * 0.1f);
+                            // 套用全域物理控制參數：排斥力 (repelForce) 與 引力倍率 (forceMultiplier)
+                            float f = (dist < 0.02f)
+                                ? ((0.02f - dist) / 0.02f * params.repelForce)
+                                : (rule * (1.0f - abs(dist - 0.11f) / 0.09f) * 0.1f * params.forceMultiplier);
+                                
                             force += dir * f;
                         }
                     }

@@ -4,21 +4,11 @@ struct ControlPanelView: View {
     @Bindable var settings: SimulationSettings
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
-    @State private var selectedColorIndex: Int = 0
-    @State private var isColorMenuOpen: Bool = false
-    
-    let colorNames = [
-        "紅🔴", "綠🟢", "藍🔵", "黃🟡", "紫🟣", "青🩵",
-        "橙🟠", "粉🩷", "棕🟤", "灰🔘", "深灰🗿", "黑⚫️",
-        "洋紅🌺", "水藍💧", "靛藍🧿", "白⚪️"
-    ]
-    
     var body: some View {
         VStack(spacing: 12) {
             headerSection
             Divider()
-            colorMenuSection
-            rulesListSection
+            interactionSection
             Divider()
             exitButtonSection
         }
@@ -28,7 +18,7 @@ struct ControlPanelView: View {
         .glassBackgroundEffect()
     }
     
-    // MARK: - 1. 頂部全局控制區
+    // MARK: - 1. 頂部全局數量與種類
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("粒子控制中樞").font(.headline)
@@ -41,114 +31,54 @@ struct ControlPanelView: View {
             Slider(value: $settings.currentParticleCount, in: 1000...54000, step: 1000)
             
             Stepper("粒子種類: \(settings.numTypes)", value: $settings.numTypes, in: 1...16)
-                .onChange(of: settings.numTypes) { _, newValue in
-                    if selectedColorIndex >= newValue {
-                        selectedColorIndex = max(0, newValue - 1)
-                    }
-                }
-            
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("阻力: \(String(format: "%.2f", settings.friction))")
-                    Slider(value: $settings.friction, in: 0.5...0.99)
-                }
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("速度: \(String(format: "%.3f", settings.speed))")
-                    Slider(value: $settings.speed, in: 0.001...0.05)
-                }
-            }
         }
     }
     
-    // MARK: - 2. 主體粒子選單
-    private var colorMenuSection: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Text("主體粒子")
-                Spacer()
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        isColorMenuOpen.toggle()
-                    }
-                }) {
-                    HStack(spacing: 4) {
-                        Text(colorNames[selectedColorIndex])
-                        Image(systemName: isColorMenuOpen ? "chevron.up" : "chevron.down")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
+    // MARK: - 2. 核心互動參數控制 (取代舊版個別矩陣)
+    private var interactionSection: some View {
+        VStack(spacing: 12) {
+            // 排斥力
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("排斥力 (Repel Force)")
+                    Spacer()
+                    Text(String(format: "%.2f", settings.repelForce))
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.mini)
+                Slider(value: $settings.repelForce, in: 0.01...4.0, step: 0.01)
+                Text("調整粒子互相排斥的力度。較高的數值會增加分離距離。")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
             }
             
-            if isColorMenuOpen {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))], spacing: 6) {
-                    ForEach(0..<settings.numTypes, id: \.self) { i in
-                        colorButton(for: i)
-                    }
+            // 引力倍率
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("引力倍率 (Force Multiplier)")
+                    Spacer()
+                    Text(String(format: "%.2f", settings.forceMultiplier))
                 }
-                .padding(8)
-                .background(.ultraThinMaterial)
-                .cornerRadius(8)
+                Slider(value: $settings.forceMultiplier, in: 0.01...2.0, step: 0.01)
+                Text("縮放粒子間的互動引力。較高的數值使作用力更強，粒子移動更快。")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
             }
-        }
-    }
-    
-    // 獨立處理按鈕樣式，避免三元運算子造成編譯器型別推導超時
-    @ViewBuilder
-    private func colorButton(for index: Int) -> some View {
-        let btn = Button(action: {
-            selectedColorIndex = index
-            withAnimation { isColorMenuOpen = false }
-        }) {
-            Text(colorNames[index])
-                .font(.caption2)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-        }
-        .controlSize(.mini)
-        
-        if selectedColorIndex == index {
-            btn.buttonStyle(.borderedProminent).tint(.blue)
-        } else {
-            btn.buttonStyle(.bordered).tint(.secondary)
-        }
-    }
-    
-    // MARK: - 3. 個別粒子引力規則設定區
-    private var rulesListSection: some View {
-        ScrollView {
-            VStack(spacing: 8) {
-                ForEach(0..<settings.numTypes, id: \.self) { targetIndex in
-                    ruleRow(targetIndex: targetIndex)
+            
+            // 摩擦力
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("摩擦力 (Friction)")
+                    Spacer()
+                    Text(String(format: "%.2f", settings.friction))
                 }
+                Slider(value: $settings.friction, in: 0.0...1.0, step: 0.01)
+                Text("控制摩擦力使粒子減速的程度。較高的數值會降低速度並有助於穩定系統。")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
             }
-            .padding(.trailing, 4)
-        }
-        .frame(height: 160)
-    }
-    
-    // 使用獨立的 Binding 封裝，避免迴圈內直接推導複雜陣列索引
-    private func ruleRow(targetIndex: Int) -> some View {
-        let arrayIndex = selectedColorIndex * 16 + targetIndex
-        let binding = Binding<Float>(
-            get: { settings.rules[arrayIndex] },
-            set: { settings.rules[arrayIndex] = $0 }
-        )
-        
-        return VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("對 \(colorNames[targetIndex])")
-                Spacer()
-                Text(String(format: "%.2f", binding.wrappedValue))
-                    .foregroundColor(ruleColor(for: binding.wrappedValue))
-            }
-            Slider(value: binding, in: -1.0...1.0)
         }
     }
     
-    // MARK: - 4. 底部離開按鈕區
+    // MARK: - 3. 底部離開按鈕
     private var exitButtonSection: some View {
         Button(action: {
             Task { await dismissImmersiveSpace() }
@@ -158,11 +88,5 @@ struct ControlPanelView: View {
         }
         .buttonStyle(.bordered)
         .tint(.red)
-    }
-    
-    private func ruleColor(for value: Float) -> Color {
-        if value > 0 { return .green }
-        if value < 0 { return .red }
-        return .primary
     }
 }

@@ -13,18 +13,22 @@ struct Particle {
 struct SimParams {
     vector_float3 leftHandPos;
     vector_float3 rightHandPos;
-    vector_float3 prevLeftHandPos;   // 📍 左手前一幀座標
-    vector_float3 prevRightHandPos;  // 📍 右手前一幀座標
+    vector_float3 prevLeftHandPos;
+    vector_float3 prevRightHandPos;
     vector_int3 gridSize;
     int particleCount;
     float dt;
     float friction;
     float boundsSize;
-    int numTypes;                    // 📍 粒子種類數量
+    int numTypes;
     float cellSize;
     int sceneTriangleCount;
     int anchorCount;
     vector_float3 boundsCenter;
+    
+    // 📍 新增：全域互動控制參數
+    float repelForce;
+    float forceMultiplier;
 };
 
 struct RenderVertex {
