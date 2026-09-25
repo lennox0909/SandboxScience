@@ -177,61 +177,61 @@ class ParticleSimulator {
     }
     
     func stepSimulation(settings: SimulationSettings) {
-        self.params.friction = settings.friction
-        self.params.dt = settings.speed
-        self.params.particleCount = Int32(settings.currentParticleCount)
-        self.params.numTypes = Int32(settings.numTypes)
-        
-        self.params.sceneTriangleCount = sceneTriangleCount
-        self.params.anchorCount = anchorCount
-        
-        self.params.prevLeftHandPos = prevLeftHandARKitPos
-        self.params.prevRightHandPos = prevRightHandARKitPos
-        self.params.leftHandPos = leftHandARKitPos
-        self.params.rightHandPos = rightHandARKitPos
-        
-        prevLeftHandARKitPos = leftHandARKitPos
-        prevRightHandARKitPos = rightHandARKitPos
-        
-        let rulesPointer = rulesBuffer.contents().bindMemory(to: Float.self, capacity: 256)
-        for i in 0..<256 {
-            rulesPointer[i] = settings.rules[i]
+            self.params.friction = settings.friction
+            self.params.dt = settings.speed
+            self.params.particleCount = Int32(settings.currentParticleCount)
+            self.params.numTypes = Int32(settings.numTypes)
+            
+            self.params.sceneTriangleCount = sceneTriangleCount
+            self.params.anchorCount = anchorCount
+            
+            self.params.prevLeftHandPos = prevLeftHandARKitPos
+            self.params.prevRightHandPos = prevRightHandARKitPos
+            self.params.leftHandPos = leftHandARKitPos
+            self.params.rightHandPos = rightHandARKitPos
+            
+            prevLeftHandARKitPos = leftHandARKitPos
+            prevRightHandARKitPos = rightHandARKitPos
+            
+            let rulesPointer = rulesBuffer.contents().bindMemory(to: Float.self, capacity: 256)
+            for i in 0..<256 { rulesPointer[i] = settings.rules[i] }
+            
+            guard let commandBuffer = commandQueue.makeCommandBuffer(), let encoder = commandBuffer.makeComputeCommandEncoder() else { return }
+            
+            encoder.setComputePipelineState(clearGridPipeline)
+            encoder.setBuffer(gridBuffer, offset: 0, index: 0)
+            encoder.dispatchThreads(MTLSizeMake(totalCells, 1, 1), threadsPerThreadgroup: MTLSizeMake(min(clearGridPipeline.maxTotalThreadsPerThreadgroup, totalCells), 1, 1))
+            
+            // 📍 永遠派發最大粒子數量 54000 給 GPU，不再從 CPU 端截斷
+            let maxTotalParticles = 54000
+            let particleGridSize = MTLSizeMake(maxTotalParticles, 1, 1)
+            
+            encoder.setComputePipelineState(buildGridPipeline)
+            encoder.setBuffer(particleBuffer, offset: 0, index: 0)
+            encoder.setBuffer(gridBuffer, offset: 0, index: 1)
+            encoder.setBytes(&self.params, length: MemoryLayout<SimParams>.stride, index: 2)
+            let buildThreadgroup = MTLSizeMake(min(buildGridPipeline.maxTotalThreadsPerThreadgroup, maxTotalParticles), 1, 1)
+            encoder.dispatchThreads(particleGridSize, threadsPerThreadgroup: buildThreadgroup)
+            
+            encoder.setComputePipelineState(updatePipeline)
+            encoder.setBuffer(particleBuffer, offset: 0, index: 0)
+            encoder.setBuffer(gridBuffer, offset: 0, index: 1)
+            encoder.setBytes(&self.params, length: MemoryLayout<SimParams>.stride, index: 2)
+            encoder.setBuffer(rulesBuffer, offset: 0, index: 3)
+            encoder.setBuffer(vertexBuffer, offset: 0, index: 4)
+            
+            if let sceneMeshBuffer = sceneMeshBuffer, let anchorBoundsBuffer = anchorBoundsBuffer, sceneTriangleCount > 0 {
+                encoder.setBuffer(sceneMeshBuffer, offset: 0, index: 5)
+                encoder.setBuffer(anchorBoundsBuffer, offset: 0, index: 6)
+            } else {
+                encoder.setBuffer(particleBuffer, offset: 0, index: 5)
+                encoder.setBuffer(particleBuffer, offset: 0, index: 6)
+            }
+            
+            let updateThreadgroup = MTLSizeMake(min(updatePipeline.maxTotalThreadsPerThreadgroup, maxTotalParticles), 1, 1)
+            encoder.dispatchThreads(particleGridSize, threadsPerThreadgroup: updateThreadgroup)
+            
+            encoder.endEncoding()
+            commandBuffer.commit()
         }
-        
-        guard let commandBuffer = commandQueue.makeCommandBuffer(), let encoder = commandBuffer.makeComputeCommandEncoder() else { return }
-        
-        encoder.setComputePipelineState(clearGridPipeline)
-        encoder.setBuffer(gridBuffer, offset: 0, index: 0)
-        encoder.dispatchThreads(MTLSizeMake(totalCells, 1, 1), threadsPerThreadgroup: MTLSizeMake(min(clearGridPipeline.maxTotalThreadsPerThreadgroup, totalCells), 1, 1))
-        
-        let particleGridSize = MTLSizeMake(Int(params.particleCount), 1, 1)
-        
-        encoder.setComputePipelineState(buildGridPipeline)
-        encoder.setBuffer(particleBuffer, offset: 0, index: 0)
-        encoder.setBuffer(gridBuffer, offset: 0, index: 1)
-        encoder.setBytes(&self.params, length: MemoryLayout<SimParams>.stride, index: 2)
-        let buildThreadgroup = MTLSizeMake(min(buildGridPipeline.maxTotalThreadsPerThreadgroup, Int(params.particleCount)), 1, 1)
-        encoder.dispatchThreads(particleGridSize, threadsPerThreadgroup: buildThreadgroup)
-        
-        encoder.setComputePipelineState(updatePipeline)
-        encoder.setBuffer(particleBuffer, offset: 0, index: 0)
-        encoder.setBuffer(gridBuffer, offset: 0, index: 1)
-        encoder.setBytes(&self.params, length: MemoryLayout<SimParams>.stride, index: 2)
-        encoder.setBuffer(rulesBuffer, offset: 0, index: 3)
-        encoder.setBuffer(vertexBuffer, offset: 0, index: 4)
-        
-        if let sceneMeshBuffer = sceneMeshBuffer, let anchorBoundsBuffer = anchorBoundsBuffer, sceneTriangleCount > 0 {
-            encoder.setBuffer(sceneMeshBuffer, offset: 0, index: 5)
-            encoder.setBuffer(anchorBoundsBuffer, offset: 0, index: 6)
-        } else {
-            encoder.setBuffer(particleBuffer, offset: 0, index: 5)
-            encoder.setBuffer(particleBuffer, offset: 0, index: 6)
-        }
-        
-        let updateThreadgroup = MTLSizeMake(min(updatePipeline.maxTotalThreadsPerThreadgroup, Int(params.particleCount)), 1, 1)
-        encoder.dispatchThreads(particleGridSize, threadsPerThreadgroup: updateThreadgroup)
-        
-        encoder.endEncoding()
-        commandBuffer.commit()
-    }
 }

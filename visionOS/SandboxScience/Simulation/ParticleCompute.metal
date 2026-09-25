@@ -59,7 +59,17 @@ kernel void clearGrid(device atomic_int* grid [[buffer(0)]], uint id [[thread_po
 }
 
 kernel void buildGrid(device const Particle* particles [[buffer(0)]], device atomic_int* grid [[buffer(1)]], constant SimParams& params [[buffer(2)]], uint id [[thread_position_in_grid]]) {
-    if (id >= (uint)params.particleCount) return;
+    if (id >= 54000) return;
+    
+    // 📍 依據當前 UI 設定，判斷該粒子是否在啟用的範圍內
+    int particlesPerType = 3375;
+    int myType = id / particlesPerType;
+    int myIndex = id % particlesPerType;
+    int activeNumTypes = max(params.numTypes, 1);
+    int activePerType = params.particleCount / activeNumTypes;
+    
+    // 超出設定種類，或超出該種類應有數量的粒子，就不參與網格碰撞
+    if (myType >= activeNumTypes || myIndex >= activePerType) return;
     
     float3 pShifted = particles[id].position - params.boundsCenter + float3(params.boundsSize * 0.5f);
     int3 cell3D = clamp(int3(pShifted / params.cellSize), 0, params.gridSize - 1);
@@ -77,7 +87,24 @@ kernel void updateParticles(device Particle* particles [[buffer(0)]],
                             device const MeshAnchorBounds* anchorBounds [[buffer(6)]],
                             uint id [[thread_position_in_grid]]) {
     
-    if (id >= (uint)params.particleCount) return;
+    if (id >= 54000) return;
+    
+    int particlesPerType = 3375;
+    int myType = id / particlesPerType;
+    int myIndex = id % particlesPerType;
+    int activeNumTypes = max(params.numTypes, 1);
+    int activePerType = params.particleCount / activeNumTypes;
+    
+    int vertexOffset = id * 60;
+    
+    // 📍 若粒子處於停用狀態，強制將它的頂點推到 9999 遠的地方隱藏起來，並跳過後續所有運算
+    if (myType >= activeNumTypes || myIndex >= activePerType) {
+        for (int i = 0; i < 60; i++) {
+            renderVertices[vertexOffset + i].position = float3(9999.0f);
+        }
+        return;
+    }
+    
     Particle p = particles[id];
     
     float3 force = float3(0);
@@ -244,7 +271,6 @@ kernel void updateParticles(device Particle* particles [[buffer(0)]],
         3,9,4, 3,4,2, 3,2,6, 3,6,8, 3,8,9, 4,9,5, 2,4,11, 6,2,10, 8,6,7, 9,8,1
     };
     
-    int vertexOffset = id * 60;
     float renderRadius = 0.005f;
     
     for(int i = 0; i < 20; i++) {

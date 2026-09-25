@@ -19,6 +19,7 @@ struct ImmersiveView: View {
             content.add(arkitOriginAnchor)
             arkitOriginAnchor.addChild(rightWristAnchor)
             
+            // 將控制面板綁定到右手腕，並縮小至 0.5 倍以符合微型面板設計
             if let menuEntity = attachments.entity(for: "wristMenu") {
                 menuEntity.position = SIMD3<Float>(0, 0.12, 0.03)
                 menuEntity.transform.rotation = simd_quatf(angle: 0, axis: SIMD3<Float>(1, 0, 0))
@@ -33,6 +34,7 @@ struct ImmersiveView: View {
                 let (entity, mesh) = try createParticleMesh()
                 self.particleMesh = mesh
                 
+                // 16 種對應顏色的材質
                 let colors: [UIColor] = [
                     .systemRed, .systemGreen, .systemBlue, .systemYellow, .systemPurple, .systemCyan,
                     .systemOrange, .systemPink, .brown, .lightGray, .darkGray, .black,
@@ -51,7 +53,8 @@ struct ImmersiveView: View {
                     
                     mesh.withUnsafeMutableBytes(bufferIndex: 0) { meshBuffer in
                         let sourcePointer = simulator.vertexBuffer.contents()
-                        let activeVertexBytes = Int(settings.currentParticleCount) * 60 * 32
+                        // 📍 永遠拷貝 54000 顆粒子的完整頂點，由 GPU 負責隱藏未啟用的粒子，實現即時數量與種類切換
+                        let activeVertexBytes = 54000 * 60 * 32
                         meshBuffer.copyMemory(from: UnsafeRawBufferPointer(start: sourcePointer, count: activeVertexBytes))
                     }
                 }
@@ -113,7 +116,7 @@ struct ImmersiveView: View {
 
 func createParticleMesh() throws -> (ModelEntity, LowLevelMesh) {
     let maxTypes = 16
-    let particlesPerType = 3375
+    let particlesPerType = 3375 // 54000 / 16
     let vertexCountPerType = particlesPerType * 60
     let totalVertexCount = vertexCountPerType * maxTypes
     var descriptor = LowLevelMesh.Descriptor()
