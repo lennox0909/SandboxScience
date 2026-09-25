@@ -22,13 +22,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B825965B3066587E007E615A /* SandboxScience-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SandboxScience-Bridging-Header.h"; sourceTree = "<group>"; };
 		B82D5DE930615645008C7558 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ParticleCompute.metal; sourceTree = "<group>"; };
 		B8E2D824305F9780005944C0 /* SandboxScience.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SandboxScience.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E2D83B305F9781005944C0 /* SandboxScienceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SandboxScienceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E2D84F305F9800005944C0 /* ParticleSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleSimulator.swift; sourceTree = "<group>"; };
 		B8E2D851305F9893005944C0 /* SharedTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedTypes.h; sourceTree = "<group>"; };
-		B8E2D854305F9BEC005944C0 /* SandboxScience-Bridging-Header.h.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SandboxScience-Bridging-Header.h.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -98,9 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				B8E2D84F305F9800005944C0 /* ParticleSimulator.swift */,
+				B825965B3066587E007E615A /* SandboxScience-Bridging-Header.h */,
 				B85C44F7305FA9E800F5CA61 /* ParticleCompute.metal */,
 				B8E2D851305F9893005944C0 /* SharedTypes.h */,
-				B8E2D854305F9BEC005944C0 /* SandboxScience-Bridging-Header.h.h */,
 			);
 			path = Simulation;
 			sourceTree = "<group>";
@@ -248,7 +248,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;
@@ -281,7 +281,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/leno/Desktop/IT專案/SandboxScience/visionOS/SandboxScience/Simulation/SandboxScience-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;

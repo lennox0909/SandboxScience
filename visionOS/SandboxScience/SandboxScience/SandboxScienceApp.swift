@@ -1,33 +1,20 @@
-//
-//  SandboxScienceApp.swift
-//  SandboxScience
-//
-//  Created by Tsai Bing-Shi on 2026/9/20.
-//
-
 import SwiftUI
 
 @main
 struct SandboxScienceApp: App {
-
+    @State private var settings = SimulationSettings()
     @State private var appModel = AppModel()
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(appModel)
         }
+        .windowStyle(.plain)
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            ImmersiveView()
+            ImmersiveView(settings: settings)
                 .environment(appModel)
-                .onAppear {
-                    appModel.immersiveSpaceState = .open
-                }
-                .onDisappear {
-                    appModel.immersiveSpaceState = .closed
-                }
         }
-        .immersionStyle(selection: .constant(.mixed), in: .mixed)
-     }
+    }
 }
