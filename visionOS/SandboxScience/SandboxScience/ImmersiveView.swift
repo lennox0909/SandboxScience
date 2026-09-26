@@ -36,13 +36,18 @@ struct ImmersiveView: View {
                 
                 // 16 種對應顏色的材質
                 let colors: [UIColor] = [
-                    .systemRed, .systemGreen, .systemBlue, .systemYellow, .systemPurple, .systemCyan,
-                    .systemOrange, .systemPink, .brown, .lightGray, .darkGray, .black,
-                    .magenta, .systemTeal, .systemIndigo, .white
+                                    .systemRed, .systemGreen, .systemBlue, .systemYellow, .systemPurple, .systemCyan,
+                                    .systemOrange, .systemPink, .brown, .lightGray, .darkGray, .black,
+                                    .magenta, .systemTeal, .systemIndigo, .white
                 ]
+                                
                 var materials = [SimpleMaterial]()
-                for color in colors { materials.append(SimpleMaterial(color: color, isMetallic: false)) }
-                
+                for color in colors {
+                                    // 📍 改回 SimpleMaterial 保留真實環境光
+                                    // 📍 加上 roughness: 0.8 減少表面反光造成的「泛白變色」錯覺
+                                    materials.append(SimpleMaterial(color: color, roughness: 0.8, isMetallic: false))
+                }
+                                
                 entity.components.set(ModelComponent(mesh: entity.model!.mesh, materials: materials))
                 arkitOriginAnchor.addChild(entity)
                 
